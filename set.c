@@ -109,7 +109,7 @@ int isElem(Set s, char *str)
 
 // nElems(Set)
 // - return # elements in Set
-int  nElems(Set s)
+int nElems(Set s)
 {
 	assert(s != NULL);
 	return s->nelems;
