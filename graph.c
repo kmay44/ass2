@@ -7,15 +7,14 @@
 #include <string.h>
 #include "graph.h"
 
-#define strEQ(g,t) (strcmp((g),(t)) == 0)
+//#define strEQ(g,t) (strcmp((g),(t)) == 0)
 
 typedef unsigned char Num;
 
 typedef struct GraphRep {
 	int   nV;
-	int   maxV;
-	char  **vertex;
-	Num   **edges;
+	int   nE;
+	int   **edges;
 } GraphRep;
 
 // Function signatures
@@ -37,16 +36,15 @@ Graph newGraph(int maxV)
 	Graph new = malloc(sizeof(GraphRep));
 	assert(new != NULL);
 	int i, j;
-	new->nV = 0;
-	new->maxV = maxV;
-	new->vertex = malloc(maxV*sizeof(char *));
-	assert(new->vertex != NULL);
-	new->edges = malloc(maxV*sizeof(Num *));
+	new->nV = maxV;
+	
+	new->edges = malloc(maxV*sizeof(int *));
 	assert(new->edges != NULL);
 	for (i = 0; i < maxV; i++) {
-		new->vertex[i] = NULL;
-		new->edges[i] = malloc(maxV*sizeof(Num));
+		new->edges[i] = malloc(maxV*sizeof(int));
 		assert(new->edges[i] != NULL);
+	}
+	for(i=0; i < maxV; i++){
 		for (j = 0; j < maxV; j++)
 			new->edges[i][j] = 0;
 	}
