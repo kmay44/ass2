@@ -66,7 +66,9 @@ Page newPage(char *url, int numUrls) {
     new.num_out = getNumOutURLs(url, new.out);
     return new;
 }
-
+<<<<<<< HEAD
+// INCOMPLETE
+=======
 
 int getNumOutURLs(char *url, char **links) {
     char filename[MAX_LENGTH];
@@ -93,7 +95,7 @@ int getNumOutURLs(char *url, char **links) {
 }
 
 /*
-
+>>>>>>> eef0b898e4f1c24224bab392cd67e7aa0cbf289d
 BST GetInvertedList(Set list) {
 
     FILE *stream;
