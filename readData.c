@@ -35,7 +35,7 @@ Graph GetGraph(Set list) {
         
     }
 }
-
+// INCOMPLETE
 BST GetInvertedList(Set list) {
 
     FILE *stream;
