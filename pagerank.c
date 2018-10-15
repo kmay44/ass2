@@ -26,9 +26,12 @@ int main(int argc, char *argv[])
 	// making the graph
 	Graph web = GetGraph(url);
 	showGraph(web, 0);
-
-
-
+	
+	
+	
+    BSTree tree = GetInvertedList(url);
+    showBSTree(tree);
+    showBSTreeNodeList(tree);
 
 	return 0;
 }
