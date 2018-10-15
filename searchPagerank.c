@@ -13,39 +13,47 @@
 
 void findMatchedUrls(char *str, char **argv, int argc)
 {
- /*   int i;
+
+
+
+    int i;
     Set urls = newSet();
     char strn[1024];
-    char *tok;
+    
+    char *t;
+    int abc = 0;
     FILE *stream = fopen("invertedIndex.txt", "r");
-    if (stream == NULL) {
-        printf("%d\n", argc);
-    }
 
-printf("%d\n", argc);
+
     while (fgets(strn, 1024, stream) != NULL) {
-    printf("tttt");
+           // printf("tttt");
+           char *p = index(strn, '\n');
+           p[0] = 0;
+           p = strn;
       //  for (tok = strtok(query, ";"); tok && *tok; tok = strtok(NULL, ";")) {  
    //         if (strncmp(strn, tok, strlen(tok)) == 0) {
-            printf("%d\n", argc);
+   //         printf("%d\n", argc);
         for (i = 0; i < argc; i++) {
-            printf("%s %s\n", strn, argv[i]);
-            if (strncmp(strn, argv[i], strlen(argv[i])) == 0) {
-                insertInto(urls, strn);
-                printf("%s", strn);
+            abc = 0;
+    //        printf("%s %s\n", strn, argv[i]);
+            if (strncmp(strn, argv[i], strlen(argv[i])) == 0 && !abc) {
+                t = strsep(&p, " ");
+                while ((t=strsep(&p, " ")) != NULL) { 
+                    insertInto(urls, t);
+      //              printf("%s", t);
+                }
+                abc = 1;
+               // break;
             }
+            
         }
     }
  //   }
 
     showSet(urls);
 
-*/
-    FILE *fp = fopen("invertedIndex.txt", "r");
-    char string[100];
-    while(fgets(string, 100, fp)) {
-        printf("%s\n", string);
-    }
+
+
 
 
 

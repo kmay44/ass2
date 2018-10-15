@@ -30,12 +30,12 @@ int main(int argc, char *argv[])
 	
 	
     InvertedIndex invertedIdx = GetInvertedList(url);
-
+  //  BSTreeInfixTxt(invertedIdx, fopen("invertedIndex.txt", "w")); 
     showBSTree(invertedIdx);
     showBSTreeNodeList(invertedIdx);
 
 
-    BSTreeInfixTxt(invertedIdx, fopen("invertedIndex.txt", "w"));   
+      
   //  printf("%s\n", argv[1]);
     findMatchedUrls("invertedIndex.txt", argv, argc);
 
