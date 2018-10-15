@@ -93,7 +93,7 @@ BSTree GetInvertedList(char url[MAX_URL][MAX_LENGTH]) {
              //   printf("READ DATA %s %s\n", str, url[i]);
                 tree = BSTreeInsert(tree, strdup(str), strdup(url[i]));
 
-             //       printf("TEST1\n");
+
             }
         }
 

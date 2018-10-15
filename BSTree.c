@@ -86,6 +86,19 @@ void BSTreeInfix(BSTree t)
 	BSTreeInfix(t->right);
 }
 
+void BSTreeInfixTxt(BSTree t, FILE *stream)
+{
+	if (t == NULL) return;
+	int i;
+	BSTreeInfixTxt(t->left, stream);
+	fprintf(stream, "%s", t->value);
+    for (i = 0; i < t->nLinks; i++) {
+        fprintf(stream, " %s", t->links[i]);
+	}
+	fprintf(stream, "\n");
+	BSTreeInfixTxt(t->right, stream);
+}
+
 // print values in prefix order
 void BSTreePrefix(BSTree t)
 {

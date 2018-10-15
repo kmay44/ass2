@@ -4,6 +4,7 @@
 #define BSTREE_H
 
 typedef struct BSTNode *BSTree;
+typedef struct BSTNode *InvertedIndex;
 
 // create an empty BSTree
 BSTree newBSTree();
@@ -35,4 +36,5 @@ int BSTreeFind(BSTree, char*);
 // delete a value from a BSTree
 BSTree BSTreeDelete(BSTree, char*);
 void showBSTreeNodeList(BSTree);
+void BSTreeInfixTxt(BSTree t, FILE *stream);
 #endif
