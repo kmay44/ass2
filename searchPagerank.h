@@ -10,7 +10,7 @@
 
 
 
-void findMatchedUrls(char *str, char **argv, int argc);
+void findMatchedUrls(char **argv, int argc);
 
     
 void findPagerank(char *str, char *list);
