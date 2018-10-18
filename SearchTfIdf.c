@@ -24,7 +24,19 @@ int no(char str[][1024], char *s);
 int main(int argc, char *argv[]) 
 {
 
+    FILE *abcd = fopen("collection.txt", "r");
+    int nUrls = 0;
+    char url[1024][1024];
+    while(fscanf(abcd, "%s", url[nUrls]) != -1) {
+        nUrls++;
+    }
+    url[nUrls][0] = '\0';
 
+    
+    
+    
+    
+    
     page pages[50];
     int i;
 
@@ -71,10 +83,10 @@ int main(int argc, char *argv[])
         pages[i].tf = pages[i].count / pages[i].total;
         
         pages[i].nd = j;
-        pages[i].td = 7;
+        pages[i].td = nUrls;
         pages[i].idf = log10(pages[i].td/pages[i].nd);
         pages[i].tfidf = pages[i].tf * pages[i].idf;
-      //debug  printf("%s %lf %lf %lf %lf %lf %lf\n",list[i], pages[i].count, pages[i].total, pages[i].tf, pages[i].nd, pages[i].td,pages[i].tf * pages[i].idf);
+     //   printf("%s %lf %lf %lf %lf %lf %lf\n",list[i], pages[i].count, pages[i].total, pages[i].tf, pages[i].nd, pages[i].td,pages[i].tf * pages[i].idf);
    //   printf("t %s %lf\n", list[i], pages[i].tfidf);
        // printf("%s\n", list[i]);
         i++;
