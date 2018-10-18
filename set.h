@@ -15,5 +15,5 @@ void dropFrom(Set,char *);
 int  isElem(Set,char *);
 int  nElems(Set);
 void showSet(Set);
-
+void genList(Set s, char str[][1024]);
 #endif
