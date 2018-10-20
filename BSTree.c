@@ -97,6 +97,7 @@ void BSTreeInfixTxt(BSTree t, FILE *stream)
 	}
 	fprintf(stream, "\n");
 	BSTreeInfixTxt(t->right, stream);
+//	fclose(stream);
 }
 
 // print values in prefix order
