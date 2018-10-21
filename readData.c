@@ -63,9 +63,11 @@ Page newPage(char *url, int numUrls) {
     for(i=0; i<numUrls; i++) {
         new.out[i] = malloc(sizeof(char)*MAX_LENGTH);
     }
-    new.num_out = getNumOutURLs(url, new.out);
+    //new.num_out = getNumOutURLs(url, new.out);
+    new.PR = 1.0/numUrls;
     return new;
 }
+/*
 <<<<<<< HEAD
 // INCOMPLETE
 =======
@@ -92,7 +94,7 @@ int getNumOutURLs(char *url, char **links) {
     } 
  
     return n_outlinks;
-}
+}*/
 
 /*
 >>>>>>> eef0b898e4f1c24224bab392cd67e7aa0cbf289d

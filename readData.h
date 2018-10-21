@@ -7,6 +7,9 @@ typedef struct structpages {
 	char *name;
 	int num_out;
 	char** out;
+
+	double PR;
+	double prevPR
 }Page;
 
 int getCollection(char *filename, char url[MAX_URL][MAX_LENGTH]);
