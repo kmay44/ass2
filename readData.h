@@ -9,7 +9,7 @@ typedef struct structpages {
 	char** out;
 
 	double PR;
-	double prevPR
+	double prevPR;
 }Page;
 
 int getCollection(char *filename, char url[MAX_URL][MAX_LENGTH]);

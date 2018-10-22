@@ -7,7 +7,7 @@
 #include <string.h>
 #include "graph.h"
 
-//#define strEQ(g,t) (strcmp((g),(t)) == 0)
+#define strEQ(g,t) (strcmp((g),(t)) == 0)
 
 typedef unsigned char Num;
 
@@ -16,6 +16,8 @@ typedef struct GraphRep {
 	int   nE;
 	int   **edges;
 } GraphRep;
+
+typedef struct GraphRep *Graph;
 
 // Function signatures
 
@@ -58,11 +60,11 @@ void disposeGraph(Graph g)
 	if (g == NULL) return;
 	int i;
 	for (i = 0; i < g->nV; i++) {
-		free(g->vertex[i]);
-	}
-	for (i = 0; i < g->maxV; i++) {
 		free(g->edges[i]);
 	}
+	//for (i = 0; i < g->nV; i++) {
+	//	free(g->edges[i]);
+	//}
 	free(g->edges);
 }
 
@@ -74,16 +76,16 @@ void disposeGraph(Graph g)
 int addEdge(Graph g, char *src, char *dest)
 {
 	assert(g != NULL);
-	int v = vertexID(src,g->vertex,g->nV);
+	int v = vertexID(src,(char **)g->edges,g->nV);
 	if (v < 0) {
-		if (g->nV >= g->maxV) return 0;
-		v = addVertex(src,g->vertex,g->nV);
+		//if (g->nV >= g->maxV) return 0;
+		v = addVertex(src,(char **)g->edges,g->nV);
 		g->nV++;
 	}
-	int w = vertexID(dest,g->vertex,g->nV);
+	int w = vertexID(dest,(char **)g->edges,g->nV);
 	if (w < 0) {
-		if (g->nV >= g->maxV) return 0;
-		w = addVertex(dest,g->vertex,g->nV);
+		//if (g->nV >= g->maxV) return 0;
+		w = addVertex(dest,(char **)g->edges,g->nV);
 		g->nV++;
 	}
 	g->edges[v][w] = 1;
@@ -95,8 +97,8 @@ int addEdge(Graph g, char *src, char *dest)
 int isConnected(Graph g, char *src, char *dest)
 {
 	assert(g != NULL);
-	int v = vertexID(src,g->vertex,g->nV);
-	int w = vertexID(dest,g->vertex,g->nV);
+	int v = vertexID(src,(char **)g->edges,g->nV);
+	int w = vertexID(dest,(char **)g->edges,g->nV);
 	if (v < 0 || w < 0)
 		return 0;
 	else
@@ -130,11 +132,11 @@ void showGraph(Graph g, int mode)
 		}
 		else {
 			for (i = 0; i < g->nV; i++) {
-				printf("Vertex: %s\n", g->vertex[i]);
+				printf("Vertex: %s\n", (char *)g->edges[i]);
 				printf("connects to\n");
 				for (j = 0; j < g->nV; j++) {
 					if (g->edges[i][j])
-						printf("   %s\n",g->vertex[j]);
+						printf("   %s\n",(char *)g->edges[j]);
 				}
 			}
 		}
