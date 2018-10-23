@@ -179,8 +179,10 @@ void showGraph(Graph g, int mode)
 
 // addVertex(Str,Names,N)
 // - add Str at end of Names
+
+/*
 int addVertex(char *str, char **names, int N)
 {
 	names[N] = strdup(str);
 	return N;
-}
+}*/

@@ -18,7 +18,7 @@ void  disposeGraph(Graph g);
 int   nVertices(Graph);
 //int   isConnected(Graph, char *, char *);
 void  showGraph(Graph,int);
-int addVertex(char *, char **, int);
+//int addVertex(char *, char **, int);
 void addEdge(Graph g, char *src, char *dest, char url[MAX_URL][MAX_LENGTH]); 
 int findIndex(char *url_name, char url[MAX_URL][MAX_LENGTH]);
 //static int vertexID(char *str, char **names, int N);

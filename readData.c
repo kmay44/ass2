@@ -64,22 +64,32 @@ PageRep newPage(char *url, int numUrls) {
     for(i=0; i<numUrls; i++) {
         new.out[i] = malloc(sizeof(char)*MAX_LENGTH);
     }
-    //new.num_out = getNumOutURLs(url, new.out);
+    new.num_out = getLinks(url, new.out);
     new.PR = 1.0/numUrls;
     return new;
 }
 
 
-int getLinks(char *name, char **url){
+int getLinks(char *name, char **url_list){
     char filename[MAX_LENGTH];
     strcpy(filename, name);
     strcat(filename, ".txt");
 
     FILE *file = fopen(filename, "r");
+    char buff[MAX_URL];
+    int n_outlinks = 0;
+    char out[MAX_LENGTH];
+    fgets(buff, MAX_LENGTH, file);
 
+    while(fscanf(file, "%s", out)!= -1) {
+        if(strcmp(out, "#end")==0) break;
+        if(strcmp(out, name)==0) continue;
+        strcpy(url_list[n_outlinks], out);
+        n_outlinks++;
+    }
 
+    return n_outlinks;
 }
-
 
 void printPageDetails(PageRep page)
 {
