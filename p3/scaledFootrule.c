@@ -19,6 +19,10 @@ void permutation(int *array, int len);
 double scaledFootrule(int *array, rank ranks[], int files);
 int main(int argc, char *argv[])
 {
+    if (argc == 1) {
+        printf("Usage : ./scaledFootrule ?.txt\n");
+        exit(0);
+    }
     rank ranks[50];
     int array[1024] = {0};
     int optarray[1024] = {0};
@@ -34,28 +38,26 @@ int main(int argc, char *argv[])
     for (i = 1; i < argc; i++) {
         nUrls1=0;
         FILE *stream = fopen(argv[i], "r");
-        while(fscanf(stream, "%s", line) != -1) {
-            strcpy(ranks[j].str[nUrls1],line);
-            nUrls1++;
-            ranks[j].size = nUrls1;
-            if (notInList(ranks[0], line)) {          
-                strcpy(ranks[0].str[nUrls],line);
-                nUrls++;             
-                ranks[0].size = nUrls;   
+        if (stream != NULL) {
+            while(fscanf(stream, "%s", line) != EOF) {
+  
+                strcpy(ranks[j].str[nUrls1],line);
+                nUrls1++;
+                ranks[j].size = nUrls1;
+                if (notInList(ranks[0], line)) {          
+                    strcpy(ranks[0].str[nUrls],line);
+                    nUrls++;             
+                    ranks[0].size = nUrls;   
+                }
             }
+            
+            j++;
+            fclose(stream);
         }
-        
-        j++;
-        fclose(stream);
     }
     files = j;
     
- //   for (j = 0; j < argc; j++) {
- //   printf("c\n");
- //       for (k = 0; k < ranks[j].size; k++) {
-       //     printf("%s\n", ranks[j].str[k]);
- //       }
- //   }
+
 
     permutation(array, nUrls);
 
