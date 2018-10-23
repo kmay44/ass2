@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
     showBSTree(tree);
     showBSTreeNodeList(tree);
 
-    
+
 	printf("try 1:\n");
 	for(i=0; i < numURLs; i++){
 		printPageDetails(pages[i]);
