@@ -59,7 +59,7 @@ PageRep newPage(char *url, int numUrls) {
     new.name = malloc(sizeof(char)*MAX_LENGTH);
     strcpy(new.name, url);
     new.out = malloc(sizeof(char *)*numUrls);
-
+    new.num_out = 0;
     int i;
     for(i=0; i<numUrls; i++) {
         new.out[i] = malloc(sizeof(char)*MAX_LENGTH);
