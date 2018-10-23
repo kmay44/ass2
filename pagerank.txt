@@ -1,0 +1,7 @@
+Name: url34, Outlinks: 0, PageRank: 0.1428571
+Name: url32, Outlinks: 0, PageRank: 0.1428571
+Name: url31, Outlinks: 0, PageRank: 0.1428571
+Name: url23, Outlinks: 0, PageRank: 0.1428571
+Name: url22, Outlinks: 0, PageRank: 0.1428571
+Name: url21, Outlinks: 0, PageRank: 0.1428571
+Name: url11, Outlinks: 0, PageRank: 0.1428571
