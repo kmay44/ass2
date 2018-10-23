@@ -161,6 +161,27 @@ void showGraph(Graph g, int mode)
 		}
 	}
 }
+void calcPR(Graph g) {
+
+	assert(g != NULL);
+	
+	if (g->nV == 0)
+		printf("Graph is empty\n");
+	else {
+		printf("Graph has %d vertices:\n",g->nV);
+		int i, j;
+		for (i = 0; i < g->nV; i++) {
+			printf("Vertex: %s\n", g->vertex[i]);
+			printf("connects to\n");
+		//	for (j = 0; j < g->nV; j++) {
+		//		if (g->edges[i][j])
+		//			printf("   %s\n",g->vertex[j]);
+		//	}
+		}
+
+	}
+    
+}
 
 
 

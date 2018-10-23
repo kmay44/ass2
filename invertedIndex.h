@@ -1,0 +1,1 @@
+void GetInvertedIndex(void);

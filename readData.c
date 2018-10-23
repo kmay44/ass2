@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <string.h>
+
 //#include "graph.h"
 //#include "set.h"
 #include "readData.h"
@@ -21,6 +22,20 @@ Set GetCollection(void) {
     while (fscanf(stream, "%s", &str) != EOF) {
         insertInto(list, &str);
     }
+=======
+#include "graph.h"
+#include "set.h"
+#include "readData.h"
+#include "BSTree.h"
+
+int GetCollection(char *filename, char url[MAX_URL][MAX_LENGTH]) {
+    FILE *stream = fopen(filename, "r");
+    int i = 0;
+    
+    while(fscanf(stream, "%s", url[i++]) != -1);
+    url[i][0] = '\0';
+    return i;
+>>>>>>> test2
 }
 */
 // this could be an alternative to getcollection
@@ -36,22 +51,46 @@ int getCollection(char *filename, char url[MAX_URL][MAX_LENGTH]) {
 }
 
 
+
 /*
 Graph GetGraph(Set list) {
+=======
+Graph GetGraph(char url[MAX_URL][MAX_LENGTH]) {
+>>>>>>> test2
 
     Graph web = newGraph(100);
     FILE *stream;
-    Link curr = list->elems;
     char str[1024] = {0};
+    char tmp[1024] = {0};
+    char tmp1[1024] = {0};
+    int i = 0;
+    int start = 0;
+    int end = 0;
 
+    while (url[i][0] != '\0') {
 
-    while (curr != NULL) {
-        stream = fopen(curr->val, "r");
-        while (fscanf(stream, "%s", &str) != EOF) {
-            addEdge(web, curr->val, &str);
+        strcpy(tmp1, url[i]);
+        strcat(tmp1, ".txt");
+        stream = fopen(tmp1, "r");
+
+        
+        
+        while (fscanf(stream, "%s", str) != EOF) {
+
+            if (strcmp(str, "Section-1") == 0) start = 1;
+            if (strcmp(str, "#end") == 0) end = 1;
+            if (start == 1 && end == 0 && strcmp(str, "Section-1")) {
+                addEdge(web, url[i], str);
+            }
+            
         }
         
+        start = 0;
+        end = 0;
+        i++;
+
     }
+<<<<<<< HEAD
 }*/
 
 PageRep newPage(char *url, int numUrls) {
@@ -172,20 +211,70 @@ int getNumOutURLs(char *url, char **links) {
     return n_outlinks;
 }*/
 
-/*
->>>>>>> eef0b898e4f1c24224bab392cd67e7aa0cbf289d
+
+//>>>>>>> eef0b898e4f1c24224bab392cd67e7aa0cbf289d
 BST GetInvertedList(Set list) {
 
-    FILE *stream;
-    Link curr = list->elems;
-    
-    while (curr != NULL) {
-        stream = fopen(curr->val, "r");
-        
-        while (fscanf(stream, "%s", &str) != EOF) {
 
-        }
+    
+    return web;
+}
+
+BSTree GetInvertedList(char url[MAX_URL][MAX_LENGTH]) {
+
+
+
+
+
+    BSTree tree = newBSTree();
+    FILE *stream;
+    char str[1024];
+    char tmp[1024] = {0};
+    char tmp1[1024] = {0};
+    int i = 0;
+    int start = 0;
+    int end = 0;
+    char *t;
+    while (url[i][0] != '\0') {
+
+        strcpy(tmp1, url[i]);
+        strcat(tmp1, ".txt");
+        stream = fopen(tmp1, "r");
+
         
-    }   
-}*/
+        
+
+
+
+        while (fscanf(stream, " %1023s", str) != EOF) {
+            char *p = &str[0];
+            if (strcmp(str, "Section-2") == 0) start = 1;
+            else if (start == 1 && strcmp(str, "#end")) {
+                if ((t = index(str, '.')) != NULL) t[0] = 0;
+                if ((t = index(str, ',')) != NULL) t[0] = 0;
+                if ((t = index(str, ';')) != NULL) t[0] = 0;
+                if ((t = index(str, '?')) != NULL) t[0] = 0; 
+                for (; *p; p++) *p = tolower(*p);
+             //   printf("READ DATA %s %s\n", str, url[i]);
+                tree = BSTreeInsert(tree, strdup(str), strdup(url[i]));
+
+
+            }
+        }
+
+        
+
+   // }   
+//}
+
+        start = 0;
+        end = 0;
+        i++;
+
+    }
+    return tree;
+
+
+}
+
 

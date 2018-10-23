@@ -10,8 +10,61 @@
 
 
 
-/*
+
+
 void findMatchedUrls(char *str, char **argv, int argc)
+
+#include "searchPagerank.h"
+
+
+int main(int argc, char *argv[]) {
+
+
+	// initialising all the urls
+	char url[MAX_URL][MAX_LENGTH];
+	int numURLs;
+	printf("Number of pages: %d\n", numURLs=GetCollection("collection.txt", url));
+	int i;
+	printf("These are the urls in collection.txt:");
+
+	for(i=0; i < numURLs - 1; i++) {
+
+		printf("%s\n", url[i]);
+
+	}
+
+        
+
+	// making the graph
+	Graph web = GetGraph(url);
+	showGraph(web, 0);
+	
+	
+    InvertedIndex invertedIdx = GetInvertedList(url);
+  //  if (argv[1] != NULL) 
+    
+    showBSTree(invertedIdx);
+    showBSTreeNodeList(invertedIdx);
+    FILE *stream = fopen("invertedIndex.txt", "w");
+    BSTreeInfixTxt(invertedIdx, stream);
+    fclose(stream); 
+
+    
+     
+  //  printf("%s\n", argv[1]);
+ //   findMatchedUrls(argv, argc);
+
+
+
+
+    findMatchedUrls(argv, argc);
+    return 0;
+}
+
+
+
+void findMatchedUrls(char **argv, int argc)
+
 {
 
 
@@ -26,6 +79,7 @@ void findMatchedUrls(char *str, char **argv, int argc)
 
 
     while (fgets(strn, 1024, stream) != NULL) {
+
            // printf("tttt");
            char *p = index(strn, '\n');
            p[0] = 0;
@@ -36,18 +90,35 @@ void findMatchedUrls(char *str, char **argv, int argc)
         for (i = 0; i < argc; i++) {
             abc = 0;
     //        printf("%s %s\n", strn, argv[i]);
+
+
+           char *p = index(strn, '\n');
+           p[0] = 0;
+           p = strn;
+
+        for (i = 0; i < argc; i++) {
+            abc = 0;
+
+
             if (strncmp(strn, argv[i], strlen(argv[i])) == 0 && !abc) {
                 t = strsep(&p, " ");
                 while ((t=strsep(&p, " ")) != NULL) { 
                     insertInto(urls, t);
+
       //              printf("%s", t);
                 }
                 abc = 1;
                // break;
+
+  
+                }
+                abc = 1;
+
             }
             
         }
     }
+
  //   }
 
     showSet(urls);
@@ -55,8 +126,12 @@ void findMatchedUrls(char *str, char **argv, int argc)
 
 
 
+    showSet(urls);
 
-*/
+    fclose(stream);
+
+
+
 }
     
 void findPagerank(char *str, char *list)
@@ -75,6 +150,7 @@ void findPagerank(char *str, char *list)
 
 
 
+/*
     double damping = 0;
     int maxIterations = 0;
     double diffPR = 0;
@@ -174,6 +250,6 @@ double w_out(char *v, char *u, Graph linkMatrix, char urls[MAX_URLS][20], Webpag
 
     wout = (double)destOutgoing/(double)sumOfOutlinksOfPagesThatSourcePointsTo;
     return wout;
-}
+}*/
 
 

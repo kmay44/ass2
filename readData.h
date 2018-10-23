@@ -1,7 +1,11 @@
+
+#include "graph.h"
+#include "BSTree.h"
 //#ifndef MAX_LENGTH 50
 #define MAX_LENGTH 50
 //#ifndef MAX_URL 1000
 #define MAX_URL 1000
+
 
 //typedef struct PageRep *Page;
 typedef struct PageRep{
@@ -35,3 +39,8 @@ void insertedInOrder(PageGroupRep *L, PageRep *page);
 PageRep newPage(char *url, int numUrls);
 int getNumOutURLs(char *url, char **links);
 void printPage(PageRep page);
+
+int GetCollection(char *filename, char url[MAX_URL][MAX_LENGTH]);
+Graph GetGraph(char url[MAX_URL][MAX_LENGTH]);
+BSTree GetInvertedList(char url[MAX_URL][MAX_LENGTH]);
+

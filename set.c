@@ -123,15 +123,36 @@ void showSet(Set s)
 	if (s->nelems == 0)
 		printf("Set is empty\n");
 	else {
-		printf("Set has %d elements:\n",s->nelems);
+	//	printf("Set has %d elements:\n",s->nelems);
 		int id = 0;
 		curr = s->elems;
 		while (curr != NULL) {
-			printf("[%03d] %s\n", id, curr->val);
+			printf("%s\n", curr->val);
 			id++;
 			curr = curr->next;
 		}
 	}
+}
+
+void genList(Set s, char str[][1024])
+{
+    int id =0;
+ //   char str[1024][1024];
+	Link curr;
+	if (s->nelems == 0)
+		printf("Set is empty\n");
+	else {
+	//	printf("Set has %d elements:\n",s->nelems);
+//		int id = 0;
+		curr = s->elems;
+		while (curr != NULL) {
+			sprintf(str[id], "%s\n", curr->val);
+			id++;
+			curr = curr->next;
+		}
+	}
+	str[id][0] = 0;
+//	return str[0];
 }
 
 // Helper functions

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -21,6 +22,7 @@ int main(int argc, char *argv[])
 	// initialising all the urls
 	char url[MAX_URL][MAX_LENGTH];
 	int numURLs;
+
 	printf("Number of pages: %d\n", numURLs=getCollection("collection.txt", url));
 	int i, j, k;
 	printf("These are the urls in collection.txt:\n");
@@ -30,6 +32,17 @@ int main(int argc, char *argv[])
 		pages[i] = newPage(url[i], numURLs);
 		printf("This is page %d: %s\n", i, pages[i]);
 	}
+
+    Graph web = GetGraph(url);
+    showGraph(web, 0);
+    
+    
+    
+    BSTree tree = GetInvertedList(url);
+    showBSTree(tree);
+    showBSTreeNodeList(tree);
+
+    
 	printf("try 1:\n");
 	for(i=0; i < numURLs; i++){
 		printPageDetails(pages[i]);
@@ -55,7 +68,7 @@ int main(int argc, char *argv[])
 		printf("\n");
 	}
 
-		printf("try 2:\n");
+	printf("try 2:\n");
 	printPageDetails(pages);
 
 	// calculating the pagerank
@@ -240,5 +253,23 @@ double w_out(char *v, char *u, Graph g, char url[MAX_URL][MAX_LENGTH], PageRep *
     wout = (double)d_numOut/(double)sumSource;
     return wout;
 }
+
+
+
+	/*printf("Number of pages: %d\n", numURLs=GetCollection("collection.txt", url));
+	int i;
+	printf("These are the urls in collection.txt:");
+//	Page *pages = malloc(sizeof(Page)*numURLs);
+	for(i=0; i < numURLs - 1; i++) {
+//	    strcat(url[i], ".txt");
+		printf("%s\n", url[i]);
+	//	pages[i] = newPage(url[i], numURLs);
+	}
+    
+*/
+	// making the graph
+	
+
+
 
 
