@@ -12,7 +12,7 @@
 	    double nd;
 	    double td;
 	    double tfidf;
-	    char val[];
+	    char val[1024];
     } page;
 
 void countWords(char **q, char *str, page *p);
@@ -63,13 +63,14 @@ int main(int argc, char *argv[])
     matches = j;
     i = 0;
     while (list[i][0] != 0) {
-        countWords(argv, list[i], &pages[i]);        
+        countWords(argv, list[i], &pages[i]);      
+        strcpy(pages[i].val, list[i]);  
         pages[i].tf = pages[i].count / pages[i].total;        
         pages[i].nd = matches;
         pages[i].td = nUrls;
         pages[i].idf = log10(pages[i].td/pages[i].nd);
         pages[i].tfidf = pages[i].tf * pages[i].idf;
-     //   printf("%s %lf %lf %lf %lf %lf %lf\n",list[i], pages[i].count, pages[i].total, pages[i].tf, pages[i].nd, pages[i].td,pages[i].tf * pages[i].idf);
+       // printf("%s %lf %lf %lf %lf %lf %lf\n",list[i], pages[i].count, pages[i].total, pages[i].tf, pages[i].nd, pages[i].td,pages[i].tf * pages[i].idf);
         i++;
     }
     
@@ -83,7 +84,7 @@ int main(int argc, char *argv[])
         }
     }
     for (i = 0; i < matches; i++) 
-        printf("%s %lf\n", list[i], pages[i].tfidf);
+        printf("%s %lf\n", pages[i].val, pages[i].tfidf);
     return 0;
 }
 
@@ -103,6 +104,7 @@ void countWords(char **q, char *url, page *p) {
         strcpy(tmp1, url);
         strcat(tmp1, ".txt");
         FILE *stream = fopen(tmp1, "r");
+        if (stream != NULL) {
         int count = 0;
         int total = 0;
         int start = 0;
@@ -129,6 +131,7 @@ void countWords(char **q, char *url, page *p) {
         }
         p->total = total;
         p->count = count;
+        } else printf("could not read file");
 }
 
 
