@@ -8,7 +8,7 @@
 #include "graph.h"
 
 #define strEQ(g,t) (strcmp((g),(t)) == 0)
-
+/*
 typedef unsigned char Num;
 
 typedef struct GraphRep {
@@ -17,7 +17,7 @@ typedef struct GraphRep {
 	int   **edges;
 } GraphRep;
 
-typedef struct GraphRep *Graph;
+//typedef struct GraphRep *Graph;
 
 // Function signatures
 
@@ -29,8 +29,8 @@ int   isConnected(Graph, char *, char *);
 void  showGraph(Graph,int);
 
 static int vertexID(char *, char **, int);
-int addVertex(char *, char **, int);
-
+//int addVertex(char *, char **, int);
+*/
 // newGraph()
 // - create an initially empty Graph
 Graph newGraph(int maxV)

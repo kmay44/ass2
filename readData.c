@@ -4,10 +4,11 @@
 #include <stdio.h>
 #include <assert.h>
 #include <string.h>
-#include "graph.h"
-#include "set.h"
+//#include "graph.h"
+//#include "set.h"
 #include "readData.h"
 
+//////////////
 
 /*
 Set GetCollection(void) {
@@ -53,8 +54,8 @@ Graph GetGraph(Set list) {
     }
 }*/
 
-Page newPage(char *url, int numUrls) {
-    Page new;
+PageRep newPage(char *url, int numUrls) {
+    PageRep new; //= malloc(sizeof(PageRep));
     new.name = malloc(sizeof(char)*MAX_LENGTH);
     strcpy(new.name, url);
     new.out = malloc(sizeof(char *)*numUrls);
@@ -67,6 +68,60 @@ Page newPage(char *url, int numUrls) {
     new.PR = 1.0/numUrls;
     return new;
 }
+
+
+void printPageDetails(PageRep page)
+{
+    printf("------ Page Name:\t %s\n", page.name);
+    printf("Out Degrees:\t %d\n", page.num_out);
+    printf("PageRank:\t %.7f\n", page.PR);      
+    if(page.num_out > 0){
+        printf("Outgoing Links: \n");
+        int i = 0;
+        for(i = 0; i < page.num_out; i ++){
+            printf("\t%s\n", page.out[i]);
+        }
+    }
+    printf("\n");
+}
+
+PageGroupRepNode *newNodeOutput(PageRep *page){
+    PageGroupRepNode *new = malloc(sizeof(PageGroupRepNode *));
+    new->page = page;
+    new->next = NULL;
+    return new;
+}
+
+void insertedInOrder(PageGroupRep *L, PageRep *page)
+{
+    PageGroupRepNode *n = newNodeOutput(page);
+    printf("%p\n", L);
+    PageGroupRepNode *curr = L->first;
+    PageGroupRepNode *prev = NULL;
+
+    if(curr == NULL){
+        //printf("HI\n");
+        L->first = L->last = n;
+        return;
+    }
+
+    while(curr!=NULL && page->PR < curr->page->PR){
+        prev = curr;
+        curr = curr->next;
+    }
+
+    if(prev == NULL){
+        L->first = n;
+        n->next = curr;
+    }else{
+        prev->next = n;
+        n->next = curr;
+        if(n->next == NULL){
+            L->last = n;
+        }
+    }
+}
+
 /*
 <<<<<<< HEAD
 // INCOMPLETE

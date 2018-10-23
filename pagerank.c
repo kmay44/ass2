@@ -2,14 +2,19 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+//#include "readData.c"
+#include "readData.h"
 #include "graph.h"
 #include "set.h"
-#include "readData.h"
 
 
 
-double w_out(char *v, char* u, Graph g, char url[MAX_URL][MAX_LENGTH], Page *pages);
-double w_in(char *v, char* u, Graph g, char url[MAX_URL][MAX_LENGTH], Page *pages);
+
+double w_out(char *v, char* u, Graph g, char url[MAX_URL][MAX_LENGTH], PageRep *pages);
+double w_in(char *v, char* u, Graph g, char url[MAX_URL][MAX_LENGTH], PageRep *pages);
+
+
+
 
 int main(int argc, char *argv[])
 {
@@ -19,7 +24,7 @@ int main(int argc, char *argv[])
 	printf("Number of pages: %d\n", numURLs=getCollection("collection.txt", url));
 	int i;
 	printf("These are the urls in collection.txt:\n");
-	Page *pages = malloc(sizeof(Page)*numURLs);
+	PageRep *pages = malloc(sizeof(PageRep)*numURLs);
 	for(i=0; i < numURLs; i++) {
 		printf("%s\n", url[i]);
 	}
@@ -93,10 +98,33 @@ int main(int argc, char *argv[])
 
     }
 
-	return 0;
+    printf("These are the pageranks supposedly for now\n\n\n\n\n");
+    PageGroupRep *PG;
+    PG = malloc(sizeof(PageGroupRep *));
+    PG->first = malloc(sizeof(PageRep *));
+    PG->last = malloc(sizeof(PageRep *));
+    PG->first = NULL;
+    PG->last = NULL;
+    FILE *file = fopen("pagerank.txt", "w");
+
+
+    for(i=0; i<numURLs;i++) {
+    	printf("Ran %d time\n", i);
+    	insertedInOrder(PG, &pages[i]);
+    }
+
+    PageGroupRepNode *curr = PG->first;
+    for(; curr != NULL; curr = curr->next) {
+    	printf("Details visible to everyone:\n");
+    	printf("Name: %s, Outlinks: %d, PageRank: %.7lf\n", curr->page->name, curr->page->num_out, curr->page->PR);
+    	fprintf(file, "Name: %s, Outlinks: %d, PageRank: %.7lf\n", curr->page->name, curr->page->num_out, curr->page->PR);
+    }
+
+    fclose(file);
+   // return 0;
 }
 
-double w_in(char* v, char* u, Graph g, char url[MAX_URL][20], Page *pages)
+double w_in(char* v, char* u, Graph g, char url[MAX_URL][MAX_LENGTH], PageRep *pages)
 {
 
     double win = 0;
@@ -123,12 +151,20 @@ double w_in(char* v, char* u, Graph g, char url[MAX_URL][20], Page *pages)
     for(int i = 0; i < g->nV; i ++){
         d_numIn += g->edges[dest][i];
     }
-
+    int pageSource;
     double sumSource = 0; 
+    int k;
     for(int i = 0; i <  pages[source].num_out; i ++){
-        int pageSource = getIndex(pages[source].out[i], url); 
-        for(int j = 0; j < g.nvertices; j++){
-            sumSource += g.edges[pageSource][j];
+        //int pageSource = getIndex(pages[source].out[i], url); 
+    	for(k=0; k < MAX_URL; k++) {
+    		if(strcmp(url[k], pages[source].out[i])==0) {
+    			pageSource = k;
+    			break;
+    		}
+    	}
+
+        for(int j = 0; j < g->nV; j++){
+            sumSource += g->edges[pageSource][j];
         }
     }
 
@@ -136,12 +172,12 @@ double w_in(char* v, char* u, Graph g, char url[MAX_URL][20], Page *pages)
     return win;
 }
 
-double w_out(char *v, char *u, Graph g, char url[MAX_URL][20], Page *pages)
+double w_out(char *v, char *u, Graph g, char url[MAX_URL][MAX_LENGTH], PageRep *pages)
 { 
     double wout = 0.0;
 
-    int source; // = getIndex(v, urls);
-    int dest; // = getIndex(u, urls);
+    int source=0; // = getIndex(v, urls);
+    int dest=0; // = getIndex(u, urls);
     int i;
     for(i=0; i < MAX_URL; i++) {
     	if(strcmp(url[i], v) == 0) {
