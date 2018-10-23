@@ -73,7 +73,9 @@ void disposeGraph(Graph g)
 // - returns 1 if edge successfully added
 // - returns 0 if unable to add edge
 //   (usually because nV exceeds maxV)
-int addEdge(Graph g, char *src, char *dest)
+
+/*
+int addEdge(Graph g, char *src, char *dest) //, char urls[MAX_URL][MAX_LENGTH])
 {
 	assert(g != NULL);
 	int v = vertexID(src,(char **)g->edges,g->nV);
@@ -91,10 +93,27 @@ int addEdge(Graph g, char *src, char *dest)
 	g->edges[v][w] = 1;
 	return 1;
 }
+*/
+int findIndex(char *url_name, char url[MAX_URL][MAX_LENGTH]) {
+	int i=0;
+	for(i=0; i<MAX_URL; i++) {
+		if(strcmp(url[i], url_name)==0) return i;
+	}
+	// this means there is no url called 'url_name' in the matrix.
+	return -1;
+}
+
+void addEdge(Graph g, char *src, char *dest, char url[MAX_URL][MAX_LENGTH]) {
+	int srcIn = findIndex(src, url);
+	int destIn = findIndex(dest, url);
+	g->edges[destIn][srcIn] = 1;
+}
+	
+
 
 // isConnected(Graph,Src,Dest)
 // - check whether there is an edge from Src->Dest
-int isConnected(Graph g, char *src, char *dest)
+/*int isConnected(Graph g, char *src, char *dest)
 {
 	assert(g != NULL);
 	int v = vertexID(src,(char **)g->edges,g->nV);
@@ -103,7 +122,7 @@ int isConnected(Graph g, char *src, char *dest)
 		return 0;
 	else
 		return g->edges[v][w];
-}
+}*/
 
 // nVertices(Graph)
 // - return # vertices currently in Graph
@@ -143,18 +162,20 @@ void showGraph(Graph g, int mode)
 	}
 }
 
+
+
 // Helper functions
 
 // vertexID(Str,Names,N)
 // - searches for Str in array of Names[N]
 // - returns index of Str if found, -1 if not
-static int vertexID(char *str, char **names, int N)
+/*static int vertexID(char *str, char **names, int N)
 {
 	int i;
 	for (i = 0; i < N; i++)
 		if (strEQ(str,names[i])) return i;
 	return -1;
-}
+}*/
 
 // addVertex(Str,Names,N)
 // - add Str at end of Names

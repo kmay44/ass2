@@ -4,18 +4,24 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
+#define MAX_URL 	1000
+#define MAX_LENGTH	50
+
 typedef struct GraphRep *Graph;
 
 // Function signatures
 
 
-Graph newGraph(int);
-void  disposeGraph(Graph);
-int   addEdge(Graph,char *,char *); //, char**);
+Graph newGraph(int maxV);
+void  disposeGraph(Graph g);
+
 int   nVertices(Graph);
-int   isConnected(Graph, char *, char *);
+//int   isConnected(Graph, char *, char *);
 void  showGraph(Graph,int);
 int addVertex(char *, char **, int);
+void addEdge(Graph g, char *src, char *dest, char url[MAX_URL][MAX_LENGTH]); 
+int findIndex(char *url_name, char url[MAX_URL][MAX_LENGTH]);
+//static int vertexID(char *str, char **names, int N);
 
 typedef unsigned char Num;
 typedef struct GraphRep {

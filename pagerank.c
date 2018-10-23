@@ -22,16 +22,41 @@ int main(int argc, char *argv[])
 	char url[MAX_URL][MAX_LENGTH];
 	int numURLs;
 	printf("Number of pages: %d\n", numURLs=getCollection("collection.txt", url));
-	int i;
+	int i, j, k;
 	printf("These are the urls in collection.txt:\n");
 	PageRep *pages = malloc(sizeof(PageRep)*numURLs);
 	for(i=0; i < numURLs; i++) {
 		printf("%s\n", url[i]);
+		pages[i] = newPage(url[i], numURLs);
+		printf("This is page %d: %s\n", i, pages[i]);
 	}
-
+	printf("try 1:\n");
+	for(i=0; i < numURLs; i++){
+		printPageDetails(pages[i]);
+	}
 	// new graph
 	Graph g = newGraph(numURLs);
+	printf("Show the graph here:\n");
 
+	for(i = 0; i < numURLs; i++) {
+		PageRep curr = pages[i];
+		for(j=0; j < curr.num_out; j++) {
+			addEdge(g, curr.name, curr.out[j], url[MAX_URL][MAX_LENGTH]);
+		}
+	}
+
+	//showGraph(g, 1);
+
+	for(i=0; i < g->nV; i++) {
+		for(j=0; j < g->nV; j++) {
+			printf("%d ", g->edges[i][j]);
+
+		}
+		printf("\n");
+	}
+
+		printf("try 2:\n");
+	printPageDetails(pages);
 
 	// calculating the pagerank
 	double damping = 0;
@@ -59,7 +84,7 @@ int main(int argc, char *argv[])
     }
 
 
-    int j, k = 0;
+    //int j, k = 0;
     double new;
 
     for(i = 0; i < maxIterations && diff >= diffPR; i++) {
@@ -114,8 +139,9 @@ int main(int argc, char *argv[])
     }
 
     PageGroupRepNode *curr = PG->first;
+    printf("Details visible to everyone:\n\n\n");
     for(; curr != NULL; curr = curr->next) {
-    	printf("Details visible to everyone:\n");
+
     	printf("Name: %s, Outlinks: %d, PageRank: %.7lf\n", curr->page->name, curr->page->num_out, curr->page->PR);
     	fprintf(file, "Name: %s, Outlinks: %d, PageRank: %.7lf\n", curr->page->name, curr->page->num_out, curr->page->PR);
     }

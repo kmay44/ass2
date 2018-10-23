@@ -70,6 +70,17 @@ PageRep newPage(char *url, int numUrls) {
 }
 
 
+int getLinks(char *name, char **url){
+    char filename[MAX_LENGTH];
+    strcpy(filename, name);
+    strcat(filename, ".txt");
+
+    FILE *file = fopen(filename, "r");
+
+
+}
+
+
 void printPageDetails(PageRep page)
 {
     printf("------ Page Name:\t %s\n", page.name);
@@ -95,7 +106,7 @@ PageGroupRepNode *newNodeOutput(PageRep *page){
 void insertedInOrder(PageGroupRep *L, PageRep *page)
 {
     PageGroupRepNode *n = newNodeOutput(page);
-    printf("%p\n", L);
+    //printf("%p\n", L);
     PageGroupRepNode *curr = L->first;
     PageGroupRepNode *prev = NULL;
 
