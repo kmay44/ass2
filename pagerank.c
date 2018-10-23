@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -33,6 +32,8 @@ int main(int argc, char *argv[])
 		printf("This is page %d: %s\n", i, pages[i]);
 	}
 
+
+    /*
     Graph web = GetGraph(url);
     showGraph(web, 0);
     
@@ -41,7 +42,7 @@ int main(int argc, char *argv[])
     BSTree tree = GetInvertedList(url);
     showBSTree(tree);
     showBSTreeNodeList(tree);
-
+    */
 
 	printf("try 1:\n");
 	for(i=0; i < numURLs; i++){
@@ -57,7 +58,7 @@ int main(int argc, char *argv[])
 			addEdge(g, curr.name, curr.out[j], url[MAX_URL][MAX_LENGTH]);
 		}
 	}
-
+    
 	//showGraph(g, 1);
 
 	for(i=0; i < g->nV; i++) {

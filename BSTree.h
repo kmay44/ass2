@@ -37,4 +37,5 @@ int BSTreeFind(BSTree, char*);
 BSTree BSTreeDelete(BSTree, char*);
 void showBSTreeNodeList(BSTree);
 void BSTreeInfixTxt(BSTree t, FILE *stream);
+BSTree GetInvertedList(char url[MAX_URL][MAX_LENGTH]);
 #endif

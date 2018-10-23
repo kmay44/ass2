@@ -5,9 +5,10 @@
 #include <assert.h>
 #include <string.h>
 
-//#include "graph.h"
-//#include "set.h"
+#include "graph.h"
+#include "set.h"
 #include "readData.h"
+#include "BSTree.h"
 
 //////////////
 
@@ -23,11 +24,9 @@ Set GetCollection(void) {
         insertInto(list, &str);
     }
 =======
-#include "graph.h"
-#include "set.h"
-#include "readData.h"
-#include "BSTree.h"
+*/
 
+/*
 int GetCollection(char *filename, char url[MAX_URL][MAX_LENGTH]) {
     FILE *stream = fopen(filename, "r");
     int i = 0;
@@ -213,13 +212,13 @@ int getNumOutURLs(char *url, char **links) {
 
 
 //>>>>>>> eef0b898e4f1c24224bab392cd67e7aa0cbf289d
-BST GetInvertedList(Set list) {
+/*BST GetInvertedList(Set list) {
 
 
     
-    return web;
-}
-
+    //return web;
+}*/
+/*
 BSTree GetInvertedList(char url[MAX_URL][MAX_LENGTH]) {
 
 
@@ -277,4 +276,4 @@ BSTree GetInvertedList(char url[MAX_URL][MAX_LENGTH]) {
 
 }
 
-
+*/

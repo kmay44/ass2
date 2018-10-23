@@ -161,6 +161,7 @@ void showGraph(Graph g, int mode)
 		}
 	}
 }
+/*
 void calcPR(Graph g) {
 
 	assert(g != NULL);
@@ -171,7 +172,7 @@ void calcPR(Graph g) {
 		printf("Graph has %d vertices:\n",g->nV);
 		int i, j;
 		for (i = 0; i < g->nV; i++) {
-			printf("Vertex: %s\n", g->vertex[i]);
+			//printf("Vertex: %s\n", g->edges[i]);
 			printf("connects to\n");
 		//	for (j = 0; j < g->nV; j++) {
 		//		if (g->edges[i][j])
@@ -182,7 +183,7 @@ void calcPR(Graph g) {
 	}
     
 }
-
+*/
 
 
 // Helper functions

@@ -1,6 +1,6 @@
 
-#include "graph.h"
-#include "BSTree.h"
+//#include "graph.h"
+//#include "BSTree.h"
 //#ifndef MAX_LENGTH 50
 #define MAX_LENGTH 50
 //#ifndef MAX_URL 1000
@@ -39,8 +39,8 @@ void insertedInOrder(PageGroupRep *L, PageRep *page);
 PageRep newPage(char *url, int numUrls);
 int getNumOutURLs(char *url, char **links);
 void printPage(PageRep page);
-
+int getLinks(char *name, char **url_list);
 int GetCollection(char *filename, char url[MAX_URL][MAX_LENGTH]);
-Graph GetGraph(char url[MAX_URL][MAX_LENGTH]);
-BSTree GetInvertedList(char url[MAX_URL][MAX_LENGTH]);
+//Graph GetGraph(char url[MAX_URL][MAX_LENGTH]);
+//BSTree GetInvertedList(char url[MAX_URL][MAX_LENGTH]);
 
