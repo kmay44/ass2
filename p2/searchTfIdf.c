@@ -22,15 +22,19 @@ int notInList(char str[][1024], char *s);
 
 int main(int argc, char *argv[]) 
 {
-
-    FILE *abcd = fopen("collection.txt", "r");
     int nUrls = 0;
     char url[1024][1024];
-    while(fscanf(abcd, "%s", url[nUrls]) != -1) {
+    FILE *stream = fopen("collection.txt", "r");
+    
+    if (stream == NULL) {
+        printf("failed to open collection.txt\n");
+        return 0;
+    }
+    while(fscanf(stream, "%s", url[nUrls]) != -1) {
         nUrls++;
     }
     url[nUrls][0] = '\0';
-
+    fclose(stream);
     
     int tmp, k;
     page pages[50];
@@ -40,7 +44,7 @@ int main(int argc, char *argv[])
     char *t;
     int j =0;
     int matches = 0;
-    FILE *stream = fopen("invertedIndex.txt", "r");
+    stream = fopen("invertedIndex.txt", "r");
 
 
     while (fgets(strn, 1024, stream) != NULL) {
