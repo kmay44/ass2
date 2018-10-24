@@ -28,8 +28,6 @@ int main(int argc, char *argv[])
     int optarray[1024] = {0};
     int i;
     int j = 1;
-    int k;
-    char name[1024];
     int nUrls =0 ;
     int nUrls1=0;
     char line[1024];
@@ -85,7 +83,7 @@ double scaledFootrule(int *array, rank ranks[], int files) {
     for (i = 0; i < ranks[0].size; i++) {
         for (j = 1; j < files; j++) {
             found = 0;
-            for (k = 0; k < ranks[j].size != 0; k++) {
+            for (k = 0; k < ranks[j].size; k++) {
                 if (!strcmp(ranks[j].str[k], ranks[0].str[i])) {
           //          printf("%s %s %d   ", ranks[j].str[k], ranks[0].str[i], k+1);
                     pos = k+1;

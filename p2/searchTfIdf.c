@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <assert.h>
 #include <string.h>
+#include <strings.h>
+#include <ctype.h>
 #include <math.h>
 
     typedef struct page {   
@@ -36,7 +38,7 @@ int main(int argc, char *argv[])
     url[nUrls][0] = '\0';
     fclose(stream);
     
-    int tmp, k;
+    int  k;
     page pages[50];
     int i;
     char strn[1024];
@@ -53,8 +55,8 @@ int main(int argc, char *argv[])
         p = strn;
         for (i = 0; i < argc; i++) {
             if (strncmp(strn, argv[i], strlen(argv[i])) == 0 ) {
-                t = strsep(&p, " ");
-                while ((t=strsep(&p, " ")) != NULL) {
+                t = strtok(p, " ");
+                while ((t=strtok(NULL, " ")) != NULL) {
                     if (notInList(list, t)) {
                     strcpy(list[j], t);
                     j++;
@@ -112,7 +114,6 @@ void countWords(char **q, char *url, page *p) {
         int count = 0;
         int total = 0;
         int start = 0;
-        int end = 0;
         char *t;
         int k =0; 
         while (fscanf(stream, " %1023s", str) != EOF) {

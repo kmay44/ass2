@@ -5,17 +5,26 @@
 #include "readData.h"
 
 
-
-
 void GetInvertedIndex(void) {
 
 	char url[MAX_URL][MAX_LENGTH];
-	int numURLs;
-	numURLs = GetCollection("collection.txt", url);
+
+	GetCollection("collection.txt", url);
 
 
     InvertedIndex invertedIdx = GetInvertedList(url);
 
     BSTreeInfixTxt(invertedIdx, fopen("invertedIndex.txt", "w"));    
-
 }
+
+
+int main(void) {
+
+    GetInvertedIndex();
+    
+    return 0;
+}
+
+
+
+

@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
-#define _POSIX_C_SOURCE 200809L
 #include <strings.h>
 #include <string.h>
 #include <ctype.h>
