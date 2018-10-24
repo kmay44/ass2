@@ -69,8 +69,8 @@ int main(int argc, char *argv[])
 		printf("\n");
 	}
 
-	printf("try 2:\n");
-	printPageDetails(pages);
+//	printf("try 2:\n");
+//	printPageDetails(pages);
 
 	// calculating the pagerank
 	double damping = 0;
