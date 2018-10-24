@@ -104,7 +104,9 @@ int findIndex(char *url_name, char url[MAX_URL][MAX_LENGTH]) {
 }
 
 void addEdge(Graph g, char *src, char *dest, char url[MAX_URL][MAX_LENGTH]) {
+   // printf("%s\n", src);
 	int srcIn = findIndex(src, url);
+	//printf("fdsfds\n");
 	int destIn = findIndex(dest, url);
 	g->edges[destIn][srcIn] = 1;
 }

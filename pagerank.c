@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
 	for(i = 0; i < numURLs; i++) {
 		PageRep curr = pages[i];
 		for(j=0; j < curr.num_out; j++) {
-			addEdge(g, curr.name, curr.out[j], url[MAX_URL][MAX_LENGTH]);
+			addEdge(g, curr.name, curr.out[j], url);
 		}
 	}
     
