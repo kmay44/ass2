@@ -1,7 +1,7 @@
-Name: url34, Outlinks: 0, PageRank: 0.1428571
-Name: url32, Outlinks: 0, PageRank: 0.1428571
-Name: url31, Outlinks: 0, PageRank: 0.1428571
-Name: url23, Outlinks: 4, PageRank: 0.1428571
-Name: url22, Outlinks: 3, PageRank: 0.1428571
-Name: url21, Outlinks: 1, PageRank: 0.1428571
-Name: url11, Outlinks: 3, PageRank: 0.1428571
+Name: url11, Outlinks: 3, PageRank: 0.0612610
+Name: url23, Outlinks: 4, PageRank: 0.0301072
+Name: url22, Outlinks: 3, PageRank: 0.0279376
+Name: url32, Outlinks: 0, PageRank: 0.0236257
+Name: url31, Outlinks: 0, PageRank: 0.0236257
+Name: url21, Outlinks: 1, PageRank: 0.0235982
+Name: url34, Outlinks: 0, PageRank: 0.0219617

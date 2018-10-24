@@ -75,9 +75,9 @@ int main(int argc, char *argv[])
 	// calculating the pagerank
 	double damping = 0;
     int maxIterations = 0;
-    double diffPR = 0.0;
+    double diffPR = 0;
 
-    double diff = diffPR;
+    
 
     if(argc == 1){
     	// these are the default values
@@ -96,7 +96,7 @@ int main(int argc, char *argv[])
         fprintf(stderr, "USAGE: ./pagerank [damping] [diffPR] [maxIterations]\n");
         exit(1);
     }
-
+    double diff = diffPR;
 
     //int j, k = 0;
     double new;
