@@ -3,10 +3,10 @@
 #include <string.h>
 #include <assert.h>
 //#include "readData.c"
-#include "readData.h"
+#include "page.h"
 #include "graph.h"
 #include "set.h"
-
+#include "readData.h"
 
 
 
@@ -144,7 +144,7 @@ int main(int argc, char *argv[])
     PG->last = malloc(sizeof(PageRep *));
     PG->first = NULL;
     PG->last = NULL;
-    FILE *file = fopen("pagerank.txt", "w");
+    FILE *file = fopen("pagerankList.txt", "w");
 
 
     for(i=0; i<numURLs;i++) {
@@ -157,7 +157,7 @@ int main(int argc, char *argv[])
     for(; curr != NULL; curr = curr->next) {
 
     	printf("Name: %s, Outlinks: %d, PageRank: %.7lf\n", curr->page->name, curr->page->num_out, curr->page->PR);
-    	fprintf(file, "Name: %s, Outlinks: %d, PageRank: %.7lf\n", curr->page->name, curr->page->num_out, curr->page->PR);
+    	fprintf(file, "%s, %d, %.7lf\n", curr->page->name, curr->page->num_out, curr->page->PR);
     }
 
     fclose(file);
