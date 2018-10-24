@@ -1,5 +1,5 @@
 // BSTree.c ... implementation of binary search tree ADT
-
+// Functions and BSTree.h implementation taken from labs
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
@@ -21,7 +21,6 @@ typedef struct BSTNode {
 static
 BSTLink newBSTNode(char *v, char *page)
 {
- //   printf("TEST\n");
 	BSTLink new = malloc(sizeof(BSTNode));
 	new->links = malloc(sizeof(char *) * 100);
 	assert(new != NULL);
@@ -52,9 +51,7 @@ void dropBSTree(BSTree t)
 // display a BSTree
 void showBSTree(BSTree t)
 {
-	void doShowBSTree(BSTree); // see later
- //   void showBSTreeNodeList(BSTree);
-  //  showBSTreeNodeList(t);
+	void doShowBSTree(BSTree); 
 	doShowBSTree(t);
 }
 
@@ -65,6 +62,7 @@ void showBSTreeNode(BSTree t)
 	printf("%s ", t->value);
 }
 
+// show the nodes in the tree
 void showBSTreeNodeList(BSTree t)
 {
     if (t == NULL) return;
@@ -86,6 +84,7 @@ void BSTreeInfix(BSTree t)
 	BSTreeInfix(t->right);
 }
 
+// printing tree in alphabetical order
 void BSTreeInfixTxt(BSTree t, FILE *stream)
 {
 	if (t == NULL) return;
@@ -97,7 +96,7 @@ void BSTreeInfixTxt(BSTree t, FILE *stream)
 	}
 	fprintf(stream, "\n");
 	BSTreeInfixTxt(t->right, stream);
-//	fclose(stream);
+
 }
 
 // print values in prefix order
@@ -150,18 +149,12 @@ BSTree BSTreeInsert(BSTree t, char v1[], char page1[])
     strcpy(page, page1);
         
 	if (t == NULL) {
-	//    printf("TEST1\n");
-//	printf("%s %s\n", v , page);
 		return newBSTNode(v, page);
-  //      printf("TEST\n");
-           
+
 	} else if (strcmp(v, t->value) < 0) { 
-	//    printf("TEST2\n");
-		t->left = BSTreeInsert(t->left, v, page);
-		   
+		t->left = BSTreeInsert(t->left, v, page); 
 	}
 	else if (strcmp(v, t->value) > 0) {
-	//    printf("TEST3\n");
 		t->right = BSTreeInsert(t->right, v, page);
 		    
 	}
@@ -175,9 +168,7 @@ BSTree BSTreeInsert(BSTree t, char v1[], char page1[])
         }
         if (!dup) {
             
-            t->links[t->nLinks] = page;    // (v == t->value)
-	        /* don't insert duplicates */
-	     //   printf("%s %d %s\n",t->value,t->nLinks, t->links[t->nLinks]);
+            t->links[t->nLinks] = page;
 	        t->nLinks++;
 	        t->links[t->nLinks] = NULL;
 		}

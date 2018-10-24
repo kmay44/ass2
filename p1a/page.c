@@ -8,10 +8,13 @@
 #include "page.h"
 
 
+// A Page is a webpage that contains the following information: 
+// - url name, number of out going links from that url,
+// - what these urls are, and it's pagerank
 
-
+// creating a new page
 PageRep newPage(char *url, int numUrls) {
-    PageRep new; //= malloc(sizeof(PageRep));
+    PageRep new; 
     new.name = malloc(sizeof(char)*MAX_LENGTH);
     strcpy(new.name, url);
     new.out = malloc(sizeof(char *)*numUrls);
@@ -25,7 +28,8 @@ PageRep newPage(char *url, int numUrls) {
     return new;
 }
 
-
+//  get the links connected to the given url 'name'
+// - returns the number of links available
 int getLinks(char *name, char **url_list){
     char filename[MAX_LENGTH];
     strcpy(filename, name);
@@ -47,9 +51,11 @@ int getLinks(char *name, char **url_list){
     return n_outlinks;
 }
 
+// printing page details
 void printPageDetails(PageRep page)
 {
-    printf("------ Page Name:\t %s\n", page.name);
+    printf("Page details:\n\n");
+    printf("Page Name:\t %s\n", page.name);
     printf("Out Degrees:\t %d\n", page.num_out);
     printf("PageRank:\t %.7f\n", page.PR);      
     if(page.num_out > 0){
@@ -62,6 +68,7 @@ void printPageDetails(PageRep page)
     printf("\n");
 }
 
+// PageNode for a group of Pages
 PageGroupRepNode *newNodeOutput(PageRep *page){
     PageGroupRepNode *new = malloc(sizeof(PageGroupRepNode *));
     new->page = page;
@@ -69,24 +76,24 @@ PageGroupRepNode *newNodeOutput(PageRep *page){
     return new;
 }
 
+// inserts the pages into a list based off their page rank value
 void insertedInOrder(PageGroupRep *L, PageRep *page)
 {
     PageGroupRepNode *n = newNodeOutput(page);
-    //printf("%p\n", L);
     PageGroupRepNode *curr = L->first;
     PageGroupRepNode *prev = NULL;
 
+    // nothing insd=ide
     if(curr == NULL){
-        //printf("HI\n");
         L->first = L->last = n;
         return;
     }
-
+    // inserting it into its proper spot
     while(curr!=NULL && page->PR < curr->page->PR){
         prev = curr;
         curr = curr->next;
     }
-
+    // at the head and the tail
     if(prev == NULL){
         L->first = n;
         n->next = curr;

@@ -5,5 +5,4 @@
 #include "graph.h"
 #include "BSTree.h"
 int GetCollection(char *filename, char url[MAX_URL][MAX_LENGTH]);
-Graph GetGraph(char url[MAX_URL][MAX_LENGTH]);
 BSTree GetInvertedList(char url[MAX_URL][MAX_LENGTH]);

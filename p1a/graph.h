@@ -1,5 +1,6 @@
 // graph.h ... Interface to Graph of strings
 // Written by John Shepherd, September 2015
+// Functions taken from labs
 
 #ifndef GRAPH_H
 #define GRAPH_H

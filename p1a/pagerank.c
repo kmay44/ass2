@@ -7,11 +7,9 @@
 #include "readData.h"
 
 
-
+// weighted in and weighted out functions used to calculate pagerank
 double w_out(char *v, char* u, Graph g, char url[MAX_URL][MAX_LENGTH], PageRep *pages);
 double w_in(char *v, char* u, Graph g, char url[MAX_URL][MAX_LENGTH], PageRep *pages);
-
-
 
 
 int main(int argc, char *argv[])
@@ -31,22 +29,12 @@ int main(int argc, char *argv[])
 	}
 
 
-    /*
-    Graph web = GetGraph(url);
-    showGraph(web, 0);
-    
-    
-    
-    BSTree tree = GetInvertedList(url);
-    showBSTree(tree);
-    showBSTreeNodeList(tree);
-    */
-
-	printf("try 1:\n");
+	// checking whether the all the details have been stored correctly
 	for(i=0; i < numURLs; i++){
 		printPageDetails(pages[i]);
 	}
-	// new graph
+
+    // initialising the graph with the number of urls
 	Graph g = newGraph(numURLs);
 	printf("Show the graph here:\n");
 
@@ -57,8 +45,8 @@ int main(int argc, char *argv[])
 		}
 	}
     
-	//showGraph(g, 1);
 
+    // printing the adjacency matrix
 	for(i=0; i < g->nV; i++) {
 		for(j=0; j < g->nV; j++) {
 			printf("%d ", g->edges[i][j]);
@@ -67,8 +55,7 @@ int main(int argc, char *argv[])
 		printf("\n");
 	}
 
-//	printf("try 2:\n");
-//	printPageDetails(pages);
+
 
 	// calculating the pagerank
 	double damping = 0;
@@ -76,7 +63,7 @@ int main(int argc, char *argv[])
     double diffPR = 0;
 
     
-
+    // setting thenvalues for the above variables
     if(argc == 1){
     	// these are the default values
         damping = 0.85;
@@ -84,23 +71,22 @@ int main(int argc, char *argv[])
         maxIterations = 1000; 
         printf("DEFAULT VALUES USED\n");
     } else if(argc == 4){
-    	// everything is given
+    	// all variables are given
         damping = atof(argv[1]);
         diffPR = atof(argv[2]);
         maxIterations = atoi(argv[3]);
     }else{
-    	// not everything is given
+    	// not all information is provided for calculations
         fprintf(stderr, "Incorrect number of arguments supplied\n");
         fprintf(stderr, "USAGE: ./pagerank [damping] [diffPR] [maxIterations]\n");
         exit(1);
     }
     double diff = diffPR;
 
-    //int j, k = 0;
     double new;
-
+    // going through 'maxIteration' times to find each pagerank
     for(i = 0; i < maxIterations && diff >= diffPR; i++) {
-
+        // going through each url
     	for(j=0; j < numURLs; j++) {
     		char *currUrl = url[j];
     		double sum = 0.0;
@@ -116,6 +102,7 @@ int main(int argc, char *argv[])
     				sum += pages[k].PR *w_in(url[k], currUrl, g, url, pages)*w_out(url[k], currUrl, g, url, pages);
     			}
     		}
+
     		pages[j].prevPR = pages[j].PR;
     		pages[j].PR = (double)(1-damping)/(double)numURLs + damping*sum;
     	}
@@ -130,12 +117,11 @@ int main(int argc, char *argv[])
     	if(diff < 0) {
     		diff = -diff;
     	}
-    	printf("Iteration %d: %.7f\n", i+1, diff);
+    	printf("\nIteration %d: %.7f\n", i+1, diff);
 
 
     }
 
-    printf("These are the pageranks supposedly for now\n\n\n\n\n");
     PageGroupRep *PG;
     PG = malloc(sizeof(PageGroupRep *));
     PG->first = malloc(sizeof(PageRep *));
@@ -164,20 +150,22 @@ int main(int argc, char *argv[])
 
 double w_in(char* v, char* u, Graph g, char url[MAX_URL][MAX_LENGTH], PageRep *pages)
 {
+    assert(v!=NULL);
+    assert(u!=NULL);
     int i;
     int j;
     double win = 0;
-    //url11 -> url31
 
-    int source; // = getIndex(v, urls);
-    int dest; // = getIndex(u, urls);
+    int source; 
+    int dest; 
+    // this is the position of the source
     for(i=0; i < MAX_URL; i++) {
     	if(strcmp(url[i], v) == 0) {
     		source = i;
     		break;
     	}
     }
-
+    // this is the position of the dest
     for(i=0; i < MAX_URL; i++) {
     	if(strcmp(url[i], u) == 0) {
     		dest = i;
@@ -185,15 +173,16 @@ double w_in(char* v, char* u, Graph g, char url[MAX_URL][MAX_LENGTH], PageRep *p
     	}
     }
 
+    // finding the total number connections
     int d_numIn = 0;
-    for(i = 0; i < g->nV; i ++){
+    for(i = 0; i < g->nV; i++){
         d_numIn += g->edges[dest][i];
     }
     int pageSource;
     double sumSource = 0; 
     int k;
-    for(i = 0; i <  pages[source].num_out; i ++){
-        //int pageSource = getIndex(pages[source].out[i], url); 
+    // computing the sum of all pages that point to the source
+    for(i = 0; i < pages[source].num_out; i++){
     	for(k=0; k < MAX_URL; k++) {
     		if(strcmp(url[k], pages[source].out[i])==0) {
     			pageSource = k;
@@ -212,32 +201,36 @@ double w_in(char* v, char* u, Graph g, char url[MAX_URL][MAX_LENGTH], PageRep *p
 
 double w_out(char *v, char *u, Graph g, char url[MAX_URL][MAX_LENGTH], PageRep *pages)
 { 
+    assert(v!=NULL);
+    assert(u!=NULL);
     double wout = 0.0;
 
-    int source=0; // = getIndex(v, urls);
-    int dest=0; // = getIndex(u, urls);
+    int source=0; 
+    int dest=0; 
     int i;
+    // this is the position of the source
     for(i=0; i < MAX_URL; i++) {
     	if(strcmp(url[i], v) == 0) {
     		source = i;
     		break;
     	}
     }
-
+    // this is the position of the dest
     for(i=0; i < MAX_URL; i++) {
     	if(strcmp(url[i], u) == 0) {
     		dest = i;
     		break;
     	}
     }
-
+    // number of out links from the destination url
     double d_numOut = (pages[dest].num_out == 0) ? 0.5:pages[dest].num_out;
-
     double sumSource = 0; 
     int pageSource = 0;
     int j;
-    for(i = 0; i <  pages[source].num_out; i ++){
 
+    // going through all the connecting links
+    for(i = 0; i < pages[source].num_out; i++){
+        // for the number of links of each link
     	for(j=0; j < MAX_URL; j++) {
     		if(strcmp(url[j], pages[source].out[i]) == 0) {
 	    		pageSource = j;
@@ -245,30 +238,10 @@ double w_out(char *v, char *u, Graph g, char url[MAX_URL][MAX_LENGTH], PageRep *
     		}
     	}
 
-        //int pageThatSourcePointsTo = getIndex(pages[source].outlinks[i], urls); 
+        
         sumSource += (pages[pageSource].out == 0) ? 0.5:pages[pageSource].num_out;
     }
 
     wout = (double)d_numOut/(double)sumSource;
     return wout;
 }
-
-
-
-	/*printf("Number of pages: %d\n", numURLs=GetCollection("collection.txt", url));
-	int i;
-	printf("These are the urls in collection.txt:");
-//	Page *pages = malloc(sizeof(Page)*numURLs);
-	for(i=0; i < numURLs - 1; i++) {
-//	    strcat(url[i], ".txt");
-		printf("%s\n", url[i]);
-	//	pages[i] = newPage(url[i], numURLs);
-	}
-    
-*/
-	// making the graph
-	
-
-
-
-

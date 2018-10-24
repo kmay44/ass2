@@ -21,8 +21,6 @@ int main(int argc, char *argv[]) {
 int findMatchedUrls(char **argv, int argc, char urls[][1024])
 {
 
-
-
     int i;
 
     char strn[1024];
@@ -102,23 +100,11 @@ void findPagerank(char str[][1024], int len)
                 t = strtok(p, ",");
                 printf("%s\n", t);
                 abc = 1;
-
             }
-            
         }
     }
 
-
-
     fclose(stream);
-
-
-
-
-
-
-
-
 
 }
 
