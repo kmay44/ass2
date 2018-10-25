@@ -102,7 +102,7 @@ int main(int argc, char *argv[])
     				sum += pages[k].PR *w_in(url[k], currUrl, g, url, pages)*w_out(url[k], currUrl, g, url, pages);
     			}
     		}
-
+            // setting previous pagerank as current pagerank and recalculating pagerank
     		pages[j].prevPR = pages[j].PR;
     		pages[j].PR = (double)(1-damping)/(double)numURLs + damping*sum;
     	}

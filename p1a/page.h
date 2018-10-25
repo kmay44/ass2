@@ -26,14 +26,13 @@ typedef struct PageGroupRep{
     struct PageGroupRepNode *last;
 }PageGroupRep;
 
-
+// printing the contents of the pagerep struct
 void printPageDetails(PageRep page);
-
-
+// inserts the pages into a list based off their page rank value
 void insertedInOrder(PageGroupRep *L, PageRep *page);
+// creating a new page
 PageRep newPage(char *url, int numUrls);
-int getNumOutURLs(char *url, char **links);
-void printPage(PageRep page);
+//  get the links connected to the given url 'name'
 int getLinks(char *name, char **url_list);
 
 

@@ -1,4 +1,5 @@
 // BSTree.c ... implementation of binary search tree ADT
+// Functions and BSTree.h implementation taken from labs
 
 #include <stdlib.h>
 #include <stdio.h>

@@ -4,6 +4,7 @@
 #include <string.h>
 #include <math.h>
 
+// rank struct
 typedef struct rank {   
     char str[128][128];
     int size;
@@ -32,16 +33,17 @@ int main(int argc, char *argv[])
     int nUrls1=0;
     char line[1024];
     int files =1;
-    
+    // for each url provided
     for (i = 1; i < argc; i++) {
         nUrls1=0;
+        // opening the url
         FILE *stream = fopen(argv[i], "r");
         if (stream != NULL) {
             while(fscanf(stream, "%s", line) != EOF) {
-  
                 strcpy(ranks[j].str[nUrls1],line);
                 nUrls1++;
                 ranks[j].size = nUrls1;
+                // making sure its an element
                 if (notInList(ranks[0], line)) {          
                     strcpy(ranks[0].str[nUrls],line);
                     nUrls++;             
@@ -56,7 +58,7 @@ int main(int argc, char *argv[])
     files = j;
     
 
-
+    // making each index the ordinal position 
     permutation(array, nUrls);
 
 
@@ -70,6 +72,7 @@ int main(int argc, char *argv[])
     
 }
 
+// calculating the scaled footrule
 double scaledFootrule(int *array, rank ranks[], int files) {
     int i;
     int j;
@@ -84,20 +87,21 @@ double scaledFootrule(int *array, rank ranks[], int files) {
         for (j = 1; j < files; j++) {
             found = 0;
             for (k = 0; k < ranks[j].size; k++) {
+                // finding where the strings are equal
                 if (!strcmp(ranks[j].str[k], ranks[0].str[i])) {
-          //          printf("%s %s %d   ", ranks[j].str[k], ranks[0].str[i], k+1);
                     pos = k+1;
                     found = 1;
                     break;
                 }
 
             }
+            // using rank struct data to find the position, size and frequency
             fn = ranks[j].size;
             a = array[i];
             n = ranks[0].size;
+            // flag is activated
             if (found) {
-            total+=fabs(pos/fn - a/n);
-
+                total+=fabs(pos/fn - a/n);
             }
             
         }
@@ -108,20 +112,21 @@ double scaledFootrule(int *array, rank ranks[], int files) {
 }
         
 
-
+// calculating the permutations of an array recursively
+// - bruteforced
 double permute(int *array,int i,int length, rank ranks[], int files, double total, int *optarray) { 
     if (length == i){
         double dist = scaledFootrule(array, ranks, files);
-        if (dist < total){
 
+        if (dist < total){
             int k;
             for (k = 0; k < length; k++) {
                 optarray[k] = array[k];
             } 
- 
             return dist;
         }
         else return total;
+
     }
     int j = i;
     for (j = i; j < length; j++) { 
@@ -133,7 +138,7 @@ double permute(int *array,int i,int length, rank ranks[], int files, double tota
 }
 
 
-
+// making each index the ordinal position 
 void permutation(int *array, int len)
 {
     int i;
@@ -145,7 +150,7 @@ void permutation(int *array, int len)
 
 
 
-
+// checking if s is an element
 int notInList(rank r, char *s)
 {
     int i;
@@ -158,12 +163,13 @@ int notInList(rank r, char *s)
 }
 
 
-
+// used to sort
 void swap(int *a, int *b) {
     int temp = *b;
     *b = *a;
     *a = temp;
 }
+// debugging tool to display array
 void printArray(int *array, int length) {
     int i;
     for (i = 0; i < length; i++) {

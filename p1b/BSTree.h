@@ -1,4 +1,5 @@
 // BSTree.h ... interface to binary search tree ADT
+// functions taken from lab exercises
 
 #ifndef BSTREE_H
 #define BSTREE_H

@@ -12,8 +12,11 @@
 // getting the collection of urls from the file
 int GetCollection(char *filename, char url[MAX_URL][MAX_LENGTH]) {
 
-    assert(filename!=NULL);
     FILE *stream = fopen(filename, "r");
+    if(stream==NULL) {
+        fprintf(stderr, "Can't open and read %s\n", filename);
+        exit(1);
+    }
     int i = 0;
     
     while(fscanf(stream, "%s", url[i]) != -1)i++;
@@ -39,6 +42,10 @@ BSTree GetInvertedList(char url[MAX_URL][MAX_LENGTH]) {
         strcpy(tmp1, url[i]);
         strcat(tmp1, ".txt");
         stream = fopen(tmp1, "r");
+        if(stream==NULL) {
+            fprintf(stderr, "Can't open and read %s\n", tmp1);
+            exit(1);
+        }
 
         // normalising the words and inserting the words into the tree
         while (fscanf(stream, " %1023s", str) != EOF) {

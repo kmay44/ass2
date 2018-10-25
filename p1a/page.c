@@ -36,6 +36,11 @@ int getLinks(char *name, char **url_list){
     strcat(filename, ".txt");
 
     FILE *file = fopen(filename, "r");
+    if(file==NULL) {
+        fprintf(stderr, "Can't open and read %s\n", filename);
+        exit(1);
+    }
+    
     char buff[MAX_URL];
     int n_outlinks = 0;
     char out[MAX_LENGTH];
@@ -83,7 +88,7 @@ void insertedInOrder(PageGroupRep *L, PageRep *page)
     PageGroupRepNode *curr = L->first;
     PageGroupRepNode *prev = NULL;
 
-    // nothing insd=ide
+    // nothing inside
     if(curr == NULL){
         L->first = L->last = n;
         return;

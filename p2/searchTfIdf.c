@@ -6,38 +6,43 @@
 #include <ctype.h>
 #include <math.h>
 
-    typedef struct page {   
-	    double tf;
-	    double idf;
-	    double count;
-	    double total;
-	    double nd;
-	    double td;
-	    double tfidf;
-	    char val[1024];
-    } page;
+// page struct containing all the tf and idf values
+typedef struct page {   
+    double tf;
+    double idf;
+    double count;
+    double total;
+    double nd;
+    double td;
+    double tfidf;
+    char val[1024];
+} page;
+
 
 void countWords(char **q, char *str, page *p);
-
 int notInList(char str[][1024], char *s);
 
 
 int main(int argc, char *argv[]) 
 {
+    // reading through the urls to count the number of them
     int nUrls = 0;
     char url[1024][1024];
     FILE *stream = fopen("collection.txt", "r");
+
     
     if (stream == NULL) {
-        printf("failed to open collection.txt\n");
-        return 0;
+        printf("Failed to open collection.txt\n");
+        exit(1);
     }
+    // finding the number of urls 
     while(fscanf(stream, "%s", url[nUrls]) != -1) {
         nUrls++;
     }
     url[nUrls][0] = '\0';
     fclose(stream);
     
+    // opening up the invertedindex text file
     int  k;
     page pages[50];
     int i;
@@ -48,7 +53,7 @@ int main(int argc, char *argv[])
     int matches = 0;
     stream = fopen("invertedIndex.txt", "r");
 
-
+    // filling up the list of urls
     while (fgets(strn, 1024, stream) != NULL) {
         char *p = index(strn, '\n');
         p[0] = 0;
@@ -58,8 +63,8 @@ int main(int argc, char *argv[])
                 t = strtok(p, " ");
                 while ((t=strtok(NULL, " ")) != NULL) {
                     if (notInList(list, t)) {
-                    strcpy(list[j], t);
-                    j++;
+                        strcpy(list[j], t);
+                        j++;
                     }
                 }
                 list[j][0] = 0;
@@ -68,6 +73,7 @@ int main(int argc, char *argv[])
     }
     matches = j;
     i = 0;
+    // calculating the total and number of given words in the list
     while (list[i][0] != 0) {
         countWords(argv, list[i], &pages[i]);      
         strcpy(pages[i].val, list[i]);  
@@ -76,10 +82,10 @@ int main(int argc, char *argv[])
         pages[i].td = nUrls;
         pages[i].idf = log10(pages[i].td/pages[i].nd);
         pages[i].tfidf = pages[i].tf * pages[i].idf;
-       // printf("%s %lf %lf %lf %lf %lf %lf\n",list[i], pages[i].count, pages[i].total, pages[i].tf, pages[i].nd, pages[i].td,pages[i].tf * pages[i].idf);
         i++;
     }
     
+    // sorting in order
     for (i = 0; i<matches; i++) {
         for (k = 0; k < matches - i; k++) {
             if (pages[k].tfidf < pages[k + 1].tfidf) {
@@ -94,6 +100,7 @@ int main(int argc, char *argv[])
     return 0;
 }
 
+// returns 0 if s is not in the list, returns 1 if it is in the list
 int notInList(char str[][1024], char *s){
     int i;
     for (i = 0; str[i][0] != 0; i++) {
@@ -104,20 +111,24 @@ int notInList(char str[][1024], char *s){
     return 1;
 }
 
+// calculating the total number of words and the number of instances of a given word
 void countWords(char **q, char *url, page *p) {     
-   char tmp1[1024];
-   char str[1024];
-        strcpy(tmp1, url);
-        strcat(tmp1, ".txt");
-        FILE *stream = fopen(tmp1, "r");
-        if (stream != NULL) {
+    char tmp1[1024];
+    char str[1024];
+    // opening up the url text file
+    strcpy(tmp1, url);
+    strcat(tmp1, ".txt");
+    FILE *stream = fopen(tmp1, "r");
+    if (stream != NULL) {
         int count = 0;
         int total = 0;
         int start = 0;
         char *t;
         int k =0; 
+        // beginning process of counting words
         while (fscanf(stream, " %1023s", str) != EOF) {
             char *p = &str[0];
+            // dont start until the string surpasses 'section 2'
             if (strcmp(str, "Section-2") == 0) start = 1;
             else if (start == 1 && strcmp(str, "#end")) {
                 if ((t = index(str, '.')) != NULL) t[0] = 0;
@@ -134,9 +145,15 @@ void countWords(char **q, char *url, page *p) {
                 total++;            
             }
         }
+        // total and count found and stored
         p->total = total;
         p->count = count;
-        } else printf("could not read file");
+    } 
+    // error in opening the file
+    else {
+        fprintf(stderr, "Could not read file\n");
+        exit(1);
+    }
 }
 
 

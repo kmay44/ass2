@@ -10,6 +10,7 @@
 
 #define strEQ(g,t) (strcmp((g),(t)) == 0)
 
+// making a new graph with maxV nodes
 Graph newGraph(int maxV)
 {
 	Graph new = malloc(sizeof(GraphRep));
@@ -30,7 +31,7 @@ Graph newGraph(int maxV)
 	return new;
 }
 
-
+// freeing the graph
 void disposeGraph(Graph g)
 {
 	if (g == NULL) return;
@@ -42,7 +43,7 @@ void disposeGraph(Graph g)
 	free(g->edges);
 }
 
-
+// finding the index of a given url_name
 int findIndex(char *url_name, char url[MAX_URL][MAX_LENGTH]) {
 	int i=0;
 	for(i=0; i<MAX_URL; i++) {
@@ -52,10 +53,10 @@ int findIndex(char *url_name, char url[MAX_URL][MAX_LENGTH]) {
 	return -1;
 }
 
+// adding an edge between two indexes in a graph
 void addEdge(Graph g, char *src, char *dest, char url[MAX_URL][MAX_LENGTH]) {
    // printf("%s\n", src);
 	int srcIn = findIndex(src, url);
-	//printf("fdsfds\n");
 	int destIn = findIndex(dest, url);
 	g->edges[destIn][srcIn] = 1;
 }

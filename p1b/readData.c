@@ -17,9 +17,14 @@ int GetCollection(char *filename, char url[MAX_URL][MAX_LENGTH]) {
         exit(1);
     }
     FILE *stream = fopen(filename, "r");
+    if(stream==NULL) {
+        fprintf(stderr, "Cant open %s\n", filename);
+        exit(1);
+    }
     int i = 0;
     
-    while(fscanf(stream, "%s", url[i]) != -1)i++;
+    while(fscanf(stream, "%s", url[i]) != -1) i++;
+    
     url[i][0] = '\0';
     return i;
 }
@@ -42,6 +47,11 @@ BSTree GetInvertedList(char url[MAX_URL][MAX_LENGTH]) {
         strcpy(tmp1, url[i]);
         strcat(tmp1, ".txt");
         stream = fopen(tmp1, "r");
+        // ensuring file is valid
+        if(stream==NULL) {
+            fprintf(stderr, "Cant open file\n");
+            exit(1);
+        }
 
         // normalising the words and inserting the words into the tree
         while (fscanf(stream, " %1023s", str) != EOF) {
